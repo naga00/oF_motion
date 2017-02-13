@@ -28,6 +28,8 @@ void ofApp::draw(){
         Ball* ball = balls[i];
         ball->x += ball->vx;
         ball->y += ball->vy;
+        
+        cout << ball->x <<endl;
         checkWalls(ball);
         ball->update();
     }
@@ -81,9 +83,10 @@ void ofApp::checkCollision(Ball *ball0, Ball *ball1) {
 
         float absV = abs(vel0->x) + abs(vel1->x);
         float overlap = (ball0->radius + ball1->radius)  - abs(pos0->x - pos1->x);
-        pos0->x += vel0->x / absV * overlap;
-        pos1->x += vel1->x / absV * overlap;
-        
+        if(absV != 0){
+            pos0->x += vel0->x / absV * overlap;
+            pos1->x += vel1->x / absV * overlap;
+        }
         ofPoint* pos0F = rotate(pos0->x, pos0->y, sine, cosine, false);
         ofPoint* pos1F = rotate(pos1->x, pos1->y, sine, cosine, false);
         
@@ -93,7 +96,7 @@ void ofApp::checkCollision(Ball *ball0, Ball *ball1) {
         ball0->y = ball0->y + pos0F->y;
         
         ofPoint* vel0F = rotate(vel0->x, vel0->y, sine, cosine, false);
-        ofPoint* vel1F = rotate(vel1->x, vel1->y, sine, cosine,false);
+        ofPoint* vel1F = rotate(vel1->x, vel1->y, sine, cosine, false);
         ball0->vx = vel0F->x;
         ball0->vy = vel0F->y;
         ball1->vx = vel1F->x;

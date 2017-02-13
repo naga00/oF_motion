@@ -22,6 +22,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofNoFill();
+    
     ofSetColor(0, 0, 0);
     ofLine(mouseX, mouseY, balls[0].x, balls[0].y);
     for(int i=1; i<numBalls; i++) {
